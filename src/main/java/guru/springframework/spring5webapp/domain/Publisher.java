@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -28,6 +29,10 @@ public class Publisher {
     private String state;
     private String zip;
     
+    @OneToMany
+    @JoinColumn(name = "publisher_id")
+    private Set<Book> books = new HashSet<>();
+    
     public Publisher(){
     
     }
@@ -38,6 +43,14 @@ public class Publisher {
         this.city = city;
         this.state = state;
         this.zip = zip;
+    }
+    
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+    
+    public Set<Book> getBooks() {
+        return books;
     }
     
     public Long getId() {
